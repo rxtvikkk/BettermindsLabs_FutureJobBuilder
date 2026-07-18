@@ -1,0 +1,29 @@
+<!-- templates/results.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Results - Future Job Builder</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header style="text-align: center; margin-bottom: 2rem;">
+            <h2>Your Career Recommendations</h2>
+            <p>Based on your unique profile, here are the careers that fit you best and how resilient they are to AI automation.</p>
+        </header>
+
+        <!-- Dynamic Grid populated by app.js -->
+        <div class="results-grid" id="resultsContainer">
+            <!-- Career cards will be injected here -->
+        </div>
+
+        <div class="text-center" style="margin-top: 3rem;">
+            <a href="/assessment" class="btn">Retake Assessment</a>
+        </div>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

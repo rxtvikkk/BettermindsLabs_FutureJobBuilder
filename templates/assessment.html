@@ -1,0 +1,62 @@
+<!-- templates/assessment.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Assessment - Future Job Builder</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center">Career Assessment</h2>
+        
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <form id="assessmentForm">
+            <!-- Section 1: Interests -->
+            <div class="assessment-section" id="section-interests">
+                <h3>Step 1: Your Interests</h3>
+                <p>Rate your interest in the following fields (1 = Low, 5 = High):</p>
+                <div class="slider-group"><label>Technology <span>1 - 5</span></label><input type="range" name="interests.tech" min="1" max="5" value="3"></div>
+                <div class="slider-group"><label>Business <span>1 - 5</span></label><input type="range" name="interests.business" min="1" max="5" value="3"></div>
+                <div class="slider-group"><label>Design & Creativity <span>1 - 5</span></label><input type="range" name="interests.design" min="1" max="5" value="3"></div>
+                <div class="slider-group"><label>Science & Healthcare <span>1 - 5</span></label><input type="range" name="interests.science" min="1" max="5" value="3"></div>
+                <div class="text-center"><button type="button" class="btn next-btn">Next Step</button></div>
+            </div>
+
+            <!-- Section 2: Strengths -->
+            <div class="assessment-section" id="section-strengths">
+                <h3>Step 2: Personal Strengths</h3>
+                <p>Rate your confidence in the following skills:</p>
+                <div class="slider-group"><label>Leadership <span>1 - 5</span></label><input type="range" name="strengths.leadership" min="1" max="5" value="3"></div>
+                <div class="slider-group"><label>Problem Solving <span>1 - 5</span></label><input type="range" name="strengths.problem_solving" min="1" max="5" value="3"></div>
+                <div class="slider-group"><label>Analytical Thinking <span>1 - 5</span></label><input type="range" name="strengths.analytical" min="1" max="5" value="3"></div>
+                <div class="slider-group"><label>Teamwork & Communication <span>1 - 5</span></label><input type="range" name="strengths.teamwork" min="1" max="5" value="3"></div>
+                <div class="text-center">
+                    <button type="button" class="btn prev-btn" style="background:#64748b; margin-right: 1rem;">Back</button>
+                    <button type="button" class="btn next-btn">Next Step</button>
+                </div>
+            </div>
+
+            <!-- Section 3: Preferences & Priorities -->
+            <div class="assessment-section" id="section-preferences">
+                <h3>Step 3: Work Preferences & Priorities</h3>
+                <p>Rate how strongly you prefer or prioritize the following:</p>
+                <div class="slider-group"><label>Working Collaboratively (vs Independently) <span>1 - 5</span></label><input type="range" name="preferences.collaborative" min="1" max="5" value="3"></div>
+                <div class="slider-group"><label>Strategic Planning (vs Hands-on Work) <span>1 - 5</span></label><input type="range" name="preferences.strategic" min="1" max="5" value="3"></div>
+                <div class="slider-group"><label>High Salary Potential <span>1 - 5</span></label><input type="range" name="priorities.salary" min="1" max="5" value="3"></div>
+                <div class="slider-group"><label>Innovation & Helping Others <span>1 - 5</span></label><input type="range" name="priorities.innovation" min="1" max="5" value="3"></div>
+                <div class="text-center">
+                    <button type="button" class="btn prev-btn" style="background:#64748b; margin-right: 1rem;">Back</button>
+                    <button type="submit" class="btn" style="background:#16a34a;">Submit Assessment</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
