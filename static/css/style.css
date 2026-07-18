@@ -1,0 +1,169 @@
+/* static/css/style.css */
+
+:root {
+    --primary-color: #2563eb;
+    --primary-hover: #1d4ed8;
+    --background-color: #f8fafc;
+    --text-main: #1e293b;
+    --text-muted: #475569;
+    --card-bg: #ffffff;
+    --border-radius: 0.75rem;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-main);
+}
+
+/* Layout Utilities */
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Typography & Buttons */
+h1, h2, h3, h4 { margin-top: 0; }
+.text-center { text-align: center; }
+
+.btn {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    font-size: 1.125rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.2s ease-in-out;
+}
+.btn:hover {
+    background-color: var(--primary-hover);
+}
+
+/* Progress Bar */
+.progress-container {
+    width: 100%;
+    background-color: #e2e8f0;
+    border-radius: 999px;
+    height: 10px;
+    margin-bottom: 2rem;
+    overflow: hidden;
+}
+.progress-bar {
+    height: 100%;
+    background-color: var(--primary-color);
+    width: 0%;
+    transition: width 0.4s ease;
+}
+
+/* Assessment Cards */
+.assessment-section {
+    display: none;
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+.assessment-section.active {
+    display: block;
+    animation: fadeIn 0.4s ease-in-out;
+}
+.slider-group {
+    margin-bottom: 1.5rem;
+}
+.slider-group label {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    text-transform: capitalize;
+}
+input[type="range"] {
+    width: 100%;
+    cursor: pointer;
+}
+
+/* Analysis Ticker */
+.ticker-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+}
+.loader-spinner {
+    border: 6px solid #e2e8f0;
+    border-top: 6px solid var(--primary-color);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1.5rem;
+}
+.ticker-text {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* Results Dashboard */
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+.career-card {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+.card-header {
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+.score-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    font-weight: bold;
+    font-size: 0.875rem;
+    margin-right: 0.5rem;
+}
+.score-match { background: #dcfce7; color: #166534; }
+.score-ai { background: #fee2e2; color: #991b1b; }
+
+.roadmap {
+    margin-top: auto;
+    background: #f1f5f9;
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+.roadmap h4 { margin: 0.5rem 0; font-size: 1rem; }
+.roadmap ul {
+    margin: 0 0 1rem 0;
+    padding-left: 1.25rem;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
