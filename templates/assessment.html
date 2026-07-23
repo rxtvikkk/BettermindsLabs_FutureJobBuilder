@@ -1,4 +1,3 @@
-<!-- templates/assessment.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +5,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Career Assessment - Future Job Builder</title>
     <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        /* Slider Indicator Styles */
+        .slider-group {
+            margin-bottom: 1.75rem;
+            text-align: left;
+        }
+        .slider-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: #1e293b;
+        }
+        .slider-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .slider-side-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #475569;
+            min-width: 110px;
+        }
+        .slider-side-label.left { text-align: right; }
+        .slider-side-label.right { text-align: left; }
+        
+        .slider-container {
+            flex-grow: 1;
+        }
+        .slider-container input[type="range"] {
+            width: 100%;
+            margin: 0;
+            cursor: pointer;
+        }
+        .slider-ticks {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 2px;
+            margin-top: 0.25rem;
+        }
+        .slider-ticks span {
+            font-size: 0.75rem;
+            color: #64748b;
+            font-weight: 600;
+        }
+        .slider-word-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #94a3b8;
+            margin-top: 0.1rem;
+        }
+        .textarea-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+        .textarea-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #1e293b;
+        }
+        .textarea-group textarea {
+            width: 100%;
+            min-height: 80px;
+            padding: 0.75rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.375rem;
+            font-family: inherit;
+            font-size: 0.95rem;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -16,39 +89,182 @@
         </div>
 
         <form id="assessmentForm">
-            <!-- Section 1: Interests -->
             <div class="assessment-section" id="section-interests">
                 <h3>Step 1: Your Interests</h3>
                 <p>Rate your interest in the following fields (1 = Low, 5 = High):</p>
-                <div class="slider-group"><label>Technology <span>1 - 5</span></label><input type="range" name="interests.tech" min="1" max="5" value="3"></div>
-                <div class="slider-group"><label>Business <span>1 - 5</span></label><input type="range" name="interests.business" min="1" max="5" value="3"></div>
-                <div class="slider-group"><label>Design & Creativity <span>1 - 5</span></label><input type="range" name="interests.design" min="1" max="5" value="3"></div>
-                <div class="slider-group"><label>Science & Healthcare <span>1 - 5</span></label><input type="range" name="interests.science" min="1" max="5" value="3"></div>
-                <div class="text-center"><button type="button" class="btn next-btn">Next Step</button></div>
+                
+                <div class="slider-group">
+                    <label>Technology & Software</label>
+                    <div class="slider-container">
+                        <input type="range" name="interests.tech" min="1" max="5" value="3" step="1" list="tickmarks">
+                        <div class="slider-ticks"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+                        <div class="slider-word-labels"><span>Low Interest</span><span>High Interest</span></div>
+                    </div>
+                </div>
+
+                <div class="slider-group">
+                    <label>Business & Entrepreneurship</label>
+                    <div class="slider-container">
+                        <input type="range" name="interests.business" min="1" max="5" value="3" step="1">
+                        <div class="slider-ticks"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+                        <div class="slider-word-labels"><span>Low Interest</span><span>High Interest</span></div>
+                    </div>
+                </div>
+
+                <div class="slider-group">
+                    <label>Design, Art & Creativity</label>
+                    <div class="slider-container">
+                        <input type="range" name="interests.design" min="1" max="5" value="3" step="1">
+                        <div class="slider-ticks"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+                        <div class="slider-word-labels"><span>Low Interest</span><span>High Interest</span></div>
+                    </div>
+                </div>
+
+                <div class="slider-group">
+                    <label>Science & Healthcare</label>
+                    <div class="slider-container">
+                        <input type="range" name="interests.science" min="1" max="5" value="3" step="1">
+                        <div class="slider-ticks"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+                        <div class="slider-word-labels"><span>Low Interest</span><span>High Interest</span></div>
+                    </div>
+                </div>
+
+                <div class="slider-group">
+                    <label>Data, Mathematics & Logic</label>
+                    <div class="slider-container">
+                        <input type="range" name="interests.data" min="1" max="5" value="3" step="1">
+                        <div class="slider-ticks"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+                        <div class="slider-word-labels"><span>Low Interest</span><span>High Interest</span></div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button type="button" class="btn next-btn">Next Step</button>
+                </div>
             </div>
 
-            <!-- Section 2: Strengths -->
             <div class="assessment-section" id="section-strengths">
                 <h3>Step 2: Personal Strengths</h3>
-                <p>Rate your confidence in the following skills:</p>
-                <div class="slider-group"><label>Leadership <span>1 - 5</span></label><input type="range" name="strengths.leadership" min="1" max="5" value="3"></div>
-                <div class="slider-group"><label>Problem Solving <span>1 - 5</span></label><input type="range" name="strengths.problem_solving" min="1" max="5" value="3"></div>
-                <div class="slider-group"><label>Analytical Thinking <span>1 - 5</span></label><input type="range" name="strengths.analytical" min="1" max="5" value="3"></div>
-                <div class="slider-group"><label>Teamwork & Communication <span>1 - 5</span></label><input type="range" name="strengths.teamwork" min="1" max="5" value="3"></div>
+                <p>Rate your confidence in the following skills (1 = Weak, 5 = Strong):</p>
+                
+                <div class="slider-group">
+                    <label>Leadership & Initiative</label>
+                    <div class="slider-container">
+                        <input type="range" name="strengths.leadership" min="1" max="5" value="3" step="1">
+                        <div class="slider-ticks"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+                        <div class="slider-word-labels"><span>Needs Work</span><span>Very Strong</span></div>
+                    </div>
+                </div>
+
+                <div class="slider-group">
+                    <label>Problem Solving & Critical Thinking</label>
+                    <div class="slider-container">
+                        <input type="range" name="strengths.problem_solving" min="1" max="5" value="3" step="1">
+                        <div class="slider-ticks"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+                        <div class="slider-word-labels"><span>Needs Work</span><span>Very Strong</span></div>
+                    </div>
+                </div>
+
+                <div class="slider-group">
+                    <label>Analytical & Mathematical Thinking</label>
+                    <div class="slider-container">
+                        <input type="range" name="strengths.analytical" min="1" max="5" value="3" step="1">
+                        <div class="slider-ticks"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+                        <div class="slider-word-labels"><span>Needs Work</span><span>Very Strong</span></div>
+                    </div>
+                </div>
+
+                <div class="slider-group">
+                    <label>Teamwork & Communication</label>
+                    <div class="slider-container">
+                        <input type="range" name="strengths.teamwork" min="1" max="5" value="3" step="1">
+                        <div class="slider-ticks"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+                        <div class="slider-word-labels"><span>Needs Work</span><span>Very Strong</span></div>
+                    </div>
+                </div>
+
+                <div class="slider-group">
+                    <label>Adaptability & Learning Speed</label>
+                    <div class="slider-container">
+                        <input type="range" name="strengths.adaptability" min="1" max="5" value="3" step="1">
+                        <div class="slider-ticks"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+                        <div class="slider-word-labels"><span>Needs Work</span><span>Very Strong</span></div>
+                    </div>
+                </div>
+
                 <div class="text-center">
                     <button type="button" class="btn prev-btn" style="background:#64748b; margin-right: 1rem;">Back</button>
                     <button type="button" class="btn next-btn">Next Step</button>
                 </div>
             </div>
 
-            <!-- Section 3: Preferences & Priorities -->
             <div class="assessment-section" id="section-preferences">
                 <h3>Step 3: Work Preferences & Priorities</h3>
-                <p>Rate how strongly you prefer or prioritize the following:</p>
-                <div class="slider-group"><label>Working Collaboratively (vs Independently) <span>1 - 5</span></label><input type="range" name="preferences.collaborative" min="1" max="5" value="3"></div>
-                <div class="slider-group"><label>Strategic Planning (vs Hands-on Work) <span>1 - 5</span></label><input type="range" name="preferences.strategic" min="1" max="5" value="3"></div>
-                <div class="slider-group"><label>High Salary Potential <span>1 - 5</span></label><input type="range" name="priorities.salary" min="1" max="5" value="3"></div>
-                <div class="slider-group"><label>Innovation & Helping Others <span>1 - 5</span></label><input type="range" name="priorities.innovation" min="1" max="5" value="3"></div>
+                <p>Adjust the sliders according to your preferences:</p>
+
+                <div class="slider-group">
+                    <label style="text-align: center; margin-bottom: 0.5rem;">Collaboration Style</label>
+                    <div class="slider-wrapper">
+                        <span class="slider-side-label left">Independent Work</span>
+                        <div class="slider-container">
+                            <input type="range" name="preferences.collaborative" min="1" max="5" value="3" step="1">
+                            <div class="slider-ticks"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+                        </div>
+                        <span class="slider-side-label right">Team Collaboration</span>
+                    </div>
+                </div>
+
+                <div class="slider-group">
+                    <label style="text-align: center; margin-bottom: 0.5rem;">Work Strategy</label>
+                    <div class="slider-wrapper">
+                        <span class="slider-side-label left">Hands-On Execution</span>
+                        <div class="slider-container">
+                            <input type="range" name="preferences.strategic" min="1" max="5" value="3" step="1">
+                            <div class="slider-ticks"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+                        </div>
+                        <span class="slider-side-label right">Strategic Planning</span>
+                    </div>
+                </div>
+
+                <div class="slider-group">
+                    <label>High Salary Potential</label>
+                    <div class="slider-container">
+                        <input type="range" name="priorities.salary" min="1" max="5" value="3" step="1">
+                        <div class="slider-ticks"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+                        <div class="slider-word-labels"><span>Not Important</span><span>Essential</span></div>
+                    </div>
+                </div>
+
+                <div class="slider-group">
+                    <label>Innovation & Social Impact</label>
+                    <div class="slider-container">
+                        <input type="range" name="priorities.innovation" min="1" max="5" value="3" step="1">
+                        <div class="slider-ticks"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+                        <div class="slider-word-labels"><span>Not Important</span><span>Essential</span></div>
+                    </div>
+                </div>
+
+                <div class="slider-group">
+                    <label>Work-Life Balance & Stability</label>
+                    <div class="slider-container">
+                        <input type="range" name="priorities.flexibility" min="1" max="5" value="3" step="1">
+                        <div class="slider-ticks"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+                        <div class="slider-word-labels"><span>Not Important</span><span>Essential</span></div>
+                    </div>
+                </div>
+
+                <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0;">
+
+                <div class="textarea-group">
+                    <label for="userLikes">What activities, topics, or subjects do you enjoy most?</label>
+                    <textarea id="userLikes" name="text_inputs.likes" placeholder="e.g., Coding small projects, designing graphics, organizing events, biology, helping friends solve problems..."></textarea>
+                </div>
+
+                <div class="textarea-group">
+                    <label for="userDislikes">What work environments or activities do you dislike or want to avoid?</label>
+                    <textarea id="userDislikes" name="text_inputs.dislikes" placeholder="e.g., Doing repetitive math problems, public speaking, working late nights, sitting alone all day..."></textarea>
+                </div>
+
                 <div class="text-center">
                     <button type="button" class="btn prev-btn" style="background:#64748b; margin-right: 1rem;">Back</button>
                     <button type="submit" class="btn" style="background:#16a34a;">Submit Assessment</button>
