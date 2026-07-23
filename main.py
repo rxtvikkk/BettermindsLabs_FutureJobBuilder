@@ -104,11 +104,11 @@ def evaluate():
             "You MUST respond ONLY with a valid JSON array containing career objects. Do NOT include markdown code blocks, preamble, or commentary."
         )
 
-       text_inputs = user_data.get("text_inputs", {})
-       user_likes = text_inputs.get("likes", "None provided")
-       user_dislikes = text_inputs.get("dislikes", "None provided")
+        text_inputs = user_data.get("text_inputs", {})
+        user_likes = text_inputs.get("likes", "None provided")
+        user_dislikes = text_inputs.get("dislikes", "None provided")
 
-       user_prompt = f"""
+        user_prompt = f"""
 Student Profile Ratings (Scale 1-5):
 - Interests: {json.dumps(interests)}
 - Strengths: {json.dumps(strengths)}
@@ -119,8 +119,7 @@ Specific Qualitative Feedback:
 - What the student ENJOYS/LIKES: "f{user_likes}"
 - What the student DISLIKES/AVOIDS: "f{user_dislikes}"
 
-Return a JSON array with 3 career objects matching the requested schema.
-"""
+
 
 Return a JSON array with 3 career objects. Each object must strictly match this exact JSON structure:
 [
