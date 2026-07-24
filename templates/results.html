@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Career Recommendations - Future Job Builder</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .career-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 1.75rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card-header {
+            border-bottom: 1px solid #f1f5f9;
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+        }
+        .career-title {
+            font-size: 1.4rem;
+            color: #0f172a;
+            margin: 0 0 0.25rem 0;
+        }
+        .career-category {
+            font-size: 0.85rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+            margin: 1rem 0;
+        }
+        .metric-badge {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 0.75rem;
+            text-align: center;
+        }
+        .metric-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #2563eb;
+        }
+        .metric-label {
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+        .chart-container {
+            margin: 1.25rem 0;
+            position: relative;
+            height: 180px;
+        }
+        .roadmap-section {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+        .roadmap-phase {
+            margin-bottom: 0.75rem;
+        }
+        .roadmap-phase h5 {
+            margin: 0 0 0.25rem 0;
+            font-size: 0.85rem;
+            color: #1e293b;
+        }
+        .roadmap-phase ul {
+            margin: 0;
+            padding-left: 1.2rem;
+            font-size: 0.8rem;
+            color: #475569;
+        }
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 0.5rem;
+        }
+        .skill-tag {
+            background: #e0e7ff;
+            color: #3730a3;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 2rem 1rem;">
+        <header style="text-align: center; margin-bottom: 2.5rem;">
+            <h2>Your AI-Analyzed & Live Market Results</h2>
+            <p>Careers tailored by <strong>llama-3.3-70b-versatile</strong> and synced with live market data from <strong>Adzuna</strong>.</p>
+        </header>
+
+        <div class="results-grid" id="resultsContainer">
+            </div>
+
+        <div class="text-center" style="margin-top: 3rem; text-align: center;">
+            <a href="/assessment" class="btn" style="background:#2563eb; color:#fff; padding:0.75rem 1.5rem; text-decoration:none; border-radius:6px;">Retake Assessment</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const storedResults = localStorage.getItem("career_results");
+            const container = document.getElementById("resultsContainer");
+
+            if (!storedResults) {
+                container.innerHTML = `<p style="text-align:center; width:100%;">No results found. Please complete the <a href="/assessment">assessment</a> first.</p>`;
+                return;
+            }
+
+            const careers = JSON.parse(storedResults);
+            container.innerHTML = "";
+
+            careers.forEach((career, index) => {
+                const canvasId = `demandChart_${index}`;
+                
+                const cardHtml = `
+                    <div class="career-card">
+                        <div>
+                            <div class="card-header">
+                                <span class="career-category">${career.category}</span>
+                                <h3 class="career-title">${career.title}</h3>
+                                <p style="font-size: 0.88rem; color: #475569; margin-top: 0.5rem;">${career.explanation}</p>
+                            </div>
+
+                            <div class="metrics-grid">
+                                <div class="metric-badge">
+                                    <div class="metric-value">${career.match_score}%</div>
+                                    <div class="metric-label">Profile Match</div>
+                                </div>
+                                <div class="metric-badge">
+                                    <div class="metric-value" style="color: #16a34a;">${career.ai_resistance_score}%</div>
+                                    <div class="metric-label">AI Resistance</div>
+                                </div>
+                                <div class="metric-badge">
+                                    <div class="metric-value" style="color: #0284c7;">${career.live_openings.toLocaleString()}</div>
+                                    <div class="metric-label">Live Openings</div>
+                                </div>
+                                <div class="metric-badge">
+                                    <div class="metric-value" style="font-size:0.95rem; color:#d97706;">${career.salary_potential}</div>
+                                    <div class="metric-label">Live Salary Range</div>
+                                </div>
+                            </div>
+
+                            <div class="chart-container">
+                                <canvas id="${canvasId}"></canvas>
+                            </div>
+
+                            <div>
+                                <strong style="font-size: 0.85rem; color: #1e293b;">Key Recommended Skills:</strong>
+                                <div class="skills-list">
+                                    ${career.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+                                </div>
+                            </div>
+
+                            <div class="roadmap-section">
+                                <h4 style="margin: 0 0 0.5rem 0; font-size: 0.9rem; color: #0f172a;">Detailed Action Roadmap</h4>
+                                
+                                <div class="roadmap-phase">
+                                    <h5>Phase 1: Start Now (High School / Foundations)</h5>
+                                    <ul>${career.roadmap.phase_1_immediate.map(i => `<li>${i}</li>`).join('')}</ul>
+                                </div>
+
+                                <div class="roadmap-phase">
+                                    <h5>Phase 2: Build Experience (Projects & Internships)</h5>
+                                    <ul>${career.roadmap.phase_2_experience.map(i => `<li>${i}</li>`).join('')}</ul>
+                                </div>
+
+                                <div class="roadmap-phase">
+                                    <h5>Phase 3: Prepare for the Future (Higher Ed & Career)</h5>
+                                    <ul>${career.roadmap.phase_3_future.map(i => `<li>${i}</li>`).join('')}</ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                container.insertAdjacentHTML("beforeend", cardHtml);
+
+                // Render Chart.js Trend Line Chart
+                setTimeout(() => {
+                    const ctx = document.getElementById(canvasId).getContext("2d");
+                    new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: career.trend_labels || ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+                            datasets: [{
+                                label: 'Live Job Market Demand Trend',
+                                data: career.trend_data || [100, 120, 115, 134, 140, 155],
+                                borderColor: '#2563eb',
+                                backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                                fill: true,
+                                tension: 0.3,
+                                borderWidth: 2,
+                                pointRadius: 3
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: false },
+                                title: {
+                                    display: true,
+                                    text: 'Demand / Active Listings Trend',
+                                    font: { size: 11 }
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    ticks: { font: { size: 9 } },
+                                    grid: { color: '#f1f5f9' }
+                                },
+                                x: {
+                                    ticks: { font: { size: 9 } },
+                                    grid: { display: false }
+                                }
+                            }
+                        }
+                    });
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>
